@@ -10,3 +10,5 @@ Copy the folder `coac-ai-microrts/src` to the `microrts/src`
 Add the `CoacAI.class` to the `AIs` array in `src/gui/frontend/FEStatePane.java`
 
 You can then run the `FrontEnd.java` and selects the AI.
+
+![coac_in_action](docs/coac.gif)

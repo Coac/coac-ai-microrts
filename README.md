@@ -1,5 +1,5 @@
 # coac-ai-microrts
-Coac AI for microRTS Competition
+Coac AI for [microRTS Competition](https://github.com/santiontanon/microrts)
 
 
 ## Installation

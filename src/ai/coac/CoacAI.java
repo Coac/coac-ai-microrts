@@ -1,17 +1,30 @@
 package ai.coac;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import ai.abstraction.AbstractionLayerAIWait1;
 import ai.abstraction.pathfinding.AStarPathFinding;
 import ai.core.AI;
 import ai.core.ParameterSpecification;
-import rts.*;
+import rts.GameState;
+import rts.PhysicalGameState;
+import rts.Player;
+import rts.PlayerAction;
+import rts.UnitAction;
+import rts.UnitActionAssignment;
 import rts.units.Unit;
 import rts.units.UnitType;
 import rts.units.UnitTypeTable;
-
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author https://github.com/Coac
@@ -78,6 +91,9 @@ public class CoacAI extends AbstractionLayerAIWait1 {
 
     public void reset() {
         super.reset();
+        harvesting.clear();
+        attackAll = false;
+        wasSeparated = false;
     }
 
 
@@ -311,15 +327,10 @@ public class CoacAI extends AbstractionLayerAIWait1 {
 
         if (p.getResources() == 0 && resources.size() == 0) {
             attackAll = true;
-            attackWithCombat = true;
         }
         int enemyCombatScore = enemyCombatUnits.stream().mapToInt(Unit::getCost).sum();
         int myCombatScore = myCombatUnits.stream().mapToInt(Unit::getCost).sum() + myCombatUnitsBusy.stream().mapToInt(Unit::getCost).sum();
-        if (myCombatScore - 4 > enemyCombatScore) {
-            attackWithCombat = true;
-        } else {
-            attackWithCombat = false;
-        }
+        attackWithCombat = (myCombatScore - 4 > enemyCombatScore);
 
         this.computeWorkersAction();
         if (this.map.equals("maps/16x16/basesWorkers16x16A.xml")) {

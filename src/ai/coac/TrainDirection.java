@@ -4,6 +4,8 @@
  */
 package ai.coac;
 
+import java.util.Objects;
+
 import ai.abstraction.AbstractAction;
 import rts.GameState;
 import rts.ResourceUsage;
@@ -11,8 +13,6 @@ import rts.UnitAction;
 import rts.units.Unit;
 import rts.units.UnitType;
 import util.XMLWriter;
-
-import java.util.Objects;
 
 /**
  * @author santi
@@ -55,7 +55,8 @@ public class TrainDirection extends AbstractAction {
         UnitAction ua = new UnitAction(UnitAction.TYPE_PRODUCE, direction, type);
         if (gs.isUnitActionAllowed(unit, ua)) return ua;
 
-        System.out.println("WARNING: TrainDirection invalid direction");
+        // Failure usually seems to be that we simply don't have enough resources anymore
+        //System.out.println("WARNING: TrainDirection invalid direction");
         return new UnitAction(UnitAction.TYPE_NONE, 1);
     }
 }

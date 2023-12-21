@@ -73,7 +73,8 @@ public class BuildModified extends AbstractAction {
                 y == unit.getY()) ua = new UnitAction(UnitAction.TYPE_PRODUCE, UnitAction.DIRECTION_LEFT, type);
         if (ua != null && gs.isUnitActionAllowed(unit, ua)) return ua;
 
-        System.err.println("Build.execute: something weird just happened " + unit + " builds at " + x + "," + y);
+        // Failure usually seems to be that we simply don't have enough resources anymore
+        //System.err.println("Build.execute: something weird just happened " + unit + " builds at " + x + "," + y);
         return new UnitAction(UnitAction.TYPE_NONE, 1);
     }
 }
